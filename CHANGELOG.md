@@ -39,6 +39,7 @@ Plugin developers:
 ### Other Changes
 
 - retire use of `pnpm` and code references
+- bump the default node version from 20 to 22
 
 ### Homebridge Dependencies
 
