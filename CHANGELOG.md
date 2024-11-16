@@ -54,11 +54,12 @@ Plugin developers:
 - retire use of `pnpm` and code references
 - bump the default node version from 20 to 22
 - make terminal enabled by default on new macOS hb-service installs
+- update node pty beta `v0.12.0-beta`
 
 ### Homebridge Dependencies
 
 - `@homebridge/hap-client` @ `v2.0.4`
-- `@homebridge/node-pty-prebuilt-multiarch` @ `v0.11.14`
+- `@homebridge/node-pty-prebuilt-multiarch` @ `v0.12.0-beta`
 - `@homebridge/plugin-ui-utils` @ `v1.0.4-beta`
 
 ## v4.65.1 (2024-12-13)
