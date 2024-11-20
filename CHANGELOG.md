@@ -55,12 +55,13 @@ Plugin developers:
 - bump the default node version from 20 to 22
 - make terminal enabled by default on new macOS hb-service installs
 - update node pty beta `v0.12.0-beta`
+- update angular from `v18` to `v19`
 
 ### Homebridge Dependencies
 
-- `@homebridge/hap-client` @ `v2.0.4`
+- `@homebridge/hap-client` @ `v2.0.5`
 - `@homebridge/node-pty-prebuilt-multiarch` @ `v0.12.0-beta`
-- `@homebridge/plugin-ui-utils` @ `v1.0.4-beta`
+- `@homebridge/plugin-ui-utils` @ `v2.0.0`
 
 ## v4.65.1 (2024-12-13)
 

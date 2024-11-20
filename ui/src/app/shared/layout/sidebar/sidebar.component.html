@@ -57,7 +57,8 @@
       </div>
     </div>
 
-    <div class="link" *ngIf="rPiWasUnderVoltage || rPiCurrentlyUnderVoltage">
+    @if (rPiWasUnderVoltage || rPiCurrentlyUnderVoltage) {
+    <div class="link">
       <div
         class="link-row"
         (click)="openUnderVoltageModal()"
@@ -70,8 +71,8 @@
         <div class="title">{{ 'rpi.throttled.undervoltage_title' | translate }}</div>
       </div>
     </div>
-
-    <div class="link" *ngIf="$auth.user.admin">
+    } @if ($auth.user.admin) {
+    <div class="link">
       <div
         class="link-row"
         [routerLink]="['/plugins']"
@@ -85,6 +86,7 @@
         <div class="title">{{ 'menu.label_plugins' | translate }}</div>
       </div>
     </div>
+    }
 
     <div class="link">
       <div
@@ -101,7 +103,8 @@
       </div>
     </div>
 
-    <div class="link" *ngIf="$auth.user.admin">
+    @if ($auth.user.admin) {
+    <div class="link">
       <div
         class="link-row"
         [routerLink]="['/logs']"
@@ -115,8 +118,8 @@
         <div class="title">{{ 'menu.linux.label_logs' | translate }}</div>
       </div>
     </div>
-
-    <div class="link" *ngIf="$settings.env.enableTerminalAccess && $auth.user.admin">
+    } @if ($settings.env.enableTerminalAccess && $auth.user.admin) {
+    <div class="link">
       <div
         class="link-row"
         [routerLink]="['/platform-tools/terminal']"
@@ -130,8 +133,8 @@
         <div class="title">{{ 'menu.linux.label_terminal' | translate }}</div>
       </div>
     </div>
-
-    <div class="link" *ngIf="$auth.user.admin">
+    } @if ($auth.user.admin) {
+    <div class="link">
       <div
         class="link-row"
         [routerLink]="['/config']"
@@ -145,8 +148,8 @@
         <div class="title">{{ 'menu.config_json_editor' | translate }}</div>
       </div>
     </div>
-
-    <div class="link" *ngIf="$auth.user.admin">
+    } @if ($auth.user.admin) {
+    <div class="link">
       <div
         class="link-row"
         [routerLink]="['/settings']"
@@ -160,6 +163,7 @@
         <div class="title">{{ 'menu.label_settings' | translate }}</div>
       </div>
     </div>
+    }
 
     <div class="link">
       <div
@@ -191,7 +195,8 @@
       </div>
     </div>
 
-    <div class="link" *ngIf="isPwa">
+    @if (isPwa) {
+    <div class="link">
       <div
         class="link-row"
         (click)="reloadPage()"
@@ -204,8 +209,8 @@
         <div class="title">{{ 'menu.reload' | translate }}</div>
       </div>
     </div>
-
-    <div class="link" *ngIf="$settings.formAuth">
+    } @if ($settings.formAuth) {
+    <div class="link">
       <div
         class="link-row"
         (click)="$auth.logout()"
@@ -218,5 +223,6 @@
         <div class="title">{{ 'menu.tooltip_logout' | translate }}</div>
       </div>
     </div>
+    }
   </div>
 </div>
