@@ -42,6 +42,7 @@ Plugin developers:
 
 - retire use of `pnpm` and code references
 - bump the default node version from 20 to 22
+- make terminal enabled by default on new macOS hb-service installs
 
 ### Homebridge Dependencies
 
