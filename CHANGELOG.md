@@ -40,6 +40,7 @@ Plugin developers:
 
 ### UI Changes
 
+- updates to the `fi.json` language file (#2253) (@l1500s)
 - implement and allow switching to scoped plugins
 - add plugin config validation functionality
 - refactor status and child bridge widgets
