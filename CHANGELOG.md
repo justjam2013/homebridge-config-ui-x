@@ -57,6 +57,7 @@ Plugin developers:
 - make terminal enabled by default on new macOS hb-service installs
 - update node pty beta `v0.12.0-beta`
 - update angular from `v18` to `v19`
+- improvements to GH actions and build processes (@NorthernMan54)
 
 ### Homebridge Dependencies
 
