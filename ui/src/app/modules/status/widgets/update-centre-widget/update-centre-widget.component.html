@@ -31,7 +31,7 @@
             @if (!homebridgePkg.installedVersion) {
             <span> {{ 'status.homebridge.checking' | translate }} </span>
             } @if (homebridgePkg.installedVersion && !homebridgePkg.updateAvailable) {
-            <span> {{ 'status.homebridge.up_to_date' | translate }} </span>
+            <span> v{{ $settings.env.homebridgeVersion }} </span>
             } @if (homebridgePkg.installedVersion && homebridgePkg.updateAvailable) {
             <a
               href="javascript:void(0)"
@@ -72,7 +72,7 @@
             @if (!homebridgeUiPkg.installedVersion) {
             <span> {{ 'status.homebridge.checking' | translate }} </span>
             } @if (homebridgeUiPkg.installedVersion && !homebridgeUiPkg.updateAvailable) {
-            <span> {{ 'status.homebridge.up_to_date' | translate }} </span>
+            <span> v{{ $settings.env.homebridgeUiVersion }} </span>
             } @if (homebridgeUiPkg.installedVersion && homebridgeUiPkg.updateAvailable) {
             <a
               href="javascript:void(0)"
@@ -144,7 +144,7 @@
             {{ 'status.widget.info.node_unsupp' | translate }}
           </a>
           } @if (nodejsStatusDone && !nodejsInfo.updateAvailable && !nodejsInfo.showNodeUnsupportedWarning) {
-          <span class="grey-text small"> {{ 'status.homebridge.up_to_date' | translate }} </span>
+          <span class="grey-text small"> v{{ $settings.env.nodeVersion }} </span>
           }
         </div>
       </div>
