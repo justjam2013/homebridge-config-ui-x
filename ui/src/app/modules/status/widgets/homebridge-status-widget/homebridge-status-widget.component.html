@@ -64,7 +64,7 @@
           <span class="grey-text">
             <span *ngIf="!homebridgePkg.installedVersion"> {{ 'status.homebridge.checking' | translate }} </span>
             <span *ngIf="homebridgePkg.installedVersion && !homebridgePkg.updateAvailable">
-              {{ 'status.homebridge.up_to_date' | translate }}
+              v{{ $settings.env.homebridgeVersion }}
             </span>
             <a
               href="javascript:void(0)"
@@ -105,7 +105,7 @@
           <span class="grey-text">
             <span *ngIf="!homebridgeUiPkg.installedVersion"> {{ 'status.homebridge.checking' | translate }} </span>
             <span *ngIf="homebridgeUiPkg.installedVersion && !homebridgeUiPkg.updateAvailable">
-              {{ 'status.homebridge.up_to_date' | translate }}
+              v{{ $settings.env.homebridgeUiVersion }}
             </span>
             <a
               href="javascript:void(0)"
