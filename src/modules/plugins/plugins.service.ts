@@ -253,13 +253,13 @@ export class PluginsService {
     let searchResults: INpmSearchResults
 
     try {
-      searchResults = (await firstValueFrom(this.httpService.get(`https://registry.npmjs.org/-/v1/search?text=${q}`))).data
+      searchResults = (await firstValueFrom(this.httpService.get(`https://api.npms.io/v2/search?q=${q}`))).data
     } catch (e) {
       this.logger.error(`Failed to search the npm registry - "${e.message}" - see https://homebridge.io/w/JJSz6 for help.`)
       throw new InternalServerErrorException(`Failed to search the npm registry - "${e.message}" - see logs.`)
     }
 
-    const result: HomebridgePlugin[] = searchResults.objects
+    const result: HomebridgePlugin[] = searchResults.results
       .filter(x => x.package.name.indexOf('homebridge-') === 0 || this.isScopedPlugin(x.package.name))
       .filter(x => !this.hiddenPlugins.includes(x.package.name))
       .map((pkg) => {
