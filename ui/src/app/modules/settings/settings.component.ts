@@ -48,6 +48,11 @@ export class SettingsComponent implements OnInit {
 
   public originalUiSettingsForm = {
     port: 0,
+    // Default values
+    auth: 'form',
+    theme: 'auto',
+    tempUnits: 'c',
+    lang: 'auto',
   }
 
   public originalLoginWallpaper = ''
@@ -112,14 +117,11 @@ export class SettingsComponent implements OnInit {
       port: this.$settings.env.port,
     })
     this.uiSettingsForm.valueChanges.pipe(debounceTime(500)).subscribe((data) => {
-      let hasChangedUiSettings = false
       Object.keys(data).forEach((key) => {
-        if (this.originalUiSettingsForm[key] !== data[key]) {
-          this.saveUiSettingChange(key, data[key])
-          hasChangedUiSettings = true
-        }
+        const newValue = (data[key] === undefined || data[key] === '') ? this.originalUiSettingsForm[key] : data[key];
+        this.saveUiSettingChange(key, data[key])
       })
-      this.hasChangedUiSettings = hasChangedUiSettings
+      this.hasChangedUiSettings = true
     })
   }
 
