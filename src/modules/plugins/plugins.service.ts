@@ -307,6 +307,7 @@ export class PluginsService {
     // Filter matching plugins
     const matchPlugins = results.filter(
       plugin => (
+        plugin.keywords.some(keyword => keyword.includes(query)) ||
         searchTerms.some(term => plugin.name.includes(term)) ||
         searchTerms.some(term => plugin.keywords.includes(term))
       )
@@ -375,7 +376,7 @@ export class PluginsService {
         bugs: typeof pkg.bugs === 'object' && pkg.bugs?.url ? pkg.bugs.url : null,
       }
       plugin.author = this.scopedPlugins[pkg.name]
-      || ((pkg.maintainers && pkg.maintainers.length) ? pkg.maintainers[0].name : null)
+        || ((pkg.maintainers && pkg.maintainers.length) ? pkg.maintainers[0].name : null)
       plugin.verifiedPlugin = this.verifiedPlugins.includes(pkg.name)
       plugin.verifiedPlusPlugin = this.verifiedPlusPlugins.includes(pkg.name)
       plugin.icon = this.pluginIcons[pkg.name]
@@ -743,7 +744,7 @@ export class PluginsService {
     await new Promise(res => setTimeout(res, 800))
 
     client.emit('stdout', yellow('If you have not started the Docker container with ')
-    + red('--restart=always') + yellow(' you may\n\rneed to manually start the container again.\n\r\n\r'))
+      + red('--restart=always') + yellow(' you may\n\rneed to manually start the container again.\n\r\n\r'))
     await new Promise(res => setTimeout(res, 800))
 
     client.emit('stdout', yellow('This process may take several minutes. Please be patient.\n\r'))
@@ -1340,7 +1341,7 @@ export class PluginsService {
         bugs: typeof pkg.bugs === 'object' && pkg.bugs?.url ? pkg.bugs.url : null,
       }
       plugin.author = this.scopedPlugins[pkg.name]
-      || ((pkg.maintainers && pkg.maintainers.length) ? pkg.maintainers[0].name : null)
+        || ((pkg.maintainers && pkg.maintainers.length) ? pkg.maintainers[0].name : null)
     } catch (e) {
       if (e.response?.status !== 404) {
         this.logger.log(`[${plugin.name}] Failed to check registry.npmjs.org for updates: "${e.message}" - see https://homebridge.io/w/JJSz6 for help.`)
