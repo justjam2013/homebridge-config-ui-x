@@ -3,6 +3,7 @@ export interface HomebridgePlugin {
   private: boolean
   displayName?: string
   description?: string
+  keywords?: string[]
   verifiedPlugin?: boolean
   verifiedPlusPlugin?: boolean
   icon?: string
@@ -123,8 +124,7 @@ export interface INpmSearchResultItem {
 }
 
 export interface INpmSearchResults {
-  total: number
-  results: INpmSearchResultItem[]
+  objects: INpmSearchResultItem[]
 }
 
 export interface IPackageJson {

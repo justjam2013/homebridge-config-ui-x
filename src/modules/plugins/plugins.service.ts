@@ -248,13 +248,13 @@ export class PluginsService {
     let searchResults: INpmSearchResults
 
     try {
-      searchResults = (await firstValueFrom(this.httpService.get(`https://api.npms.io/v2/search?q=${q}`))).data
+      searchResults = (await firstValueFrom(this.httpService.get(`https://registry.npmjs.org/-/v1/search?text=${q}`))).data
     } catch (e) {
       this.logger.error(`Failed to search the npm registry - "${e.message}" - see https://homebridge.io/w/JJSz6 for help.`)
       throw new InternalServerErrorException(`Failed to search the npm registry - "${e.message}" - see logs.`)
     }
 
-    const result: HomebridgePlugin[] = searchResults.results
+    const results: HomebridgePlugin[] = searchResults.objects
       .filter(x => x.package.name.indexOf('homebridge-') === 0 || this.isScopedPlugin(x.package.name))
       .filter(x => !this.hiddenPlugins.includes(x.package.name))
       .map((pkg) => {
@@ -279,6 +279,7 @@ export class PluginsService {
         plugin.description = (pkg.package.description)
           ? pkg.package.description.replace(/\(?(?:https?|ftp):\/\/[\n\S]+/g, '').trim()
           : pkg.package.name
+        plugin.keywords = pkg.package.keywords
         plugin.links = pkg.package.links
         plugin.author = this.scopedPlugins[pkg.package.name] || ((pkg.package.publisher) ? pkg.package.publisher.username : null)
         plugin.verifiedPlugin = this.verifiedPlugins.includes(pkg.package.name)
@@ -293,14 +294,25 @@ export class PluginsService {
       })
 
     if (
-      !result.length
+      !results.length
       && (query.indexOf('homebridge-') === 0 || this.isScopedPlugin(query))
       && !this.hiddenPlugins.includes(query.toLowerCase())
     ) {
       return await this.searchNpmRegistrySingle(query.toLowerCase())
     }
 
-    return orderBy(result, ['verifiedPlusPlugin', 'verifiedPlugin'], ['desc', 'desc'])
+    // Split search query by [space, comma, '+'] and remove empty strings
+    const searchTerms: string[] = query.split(/[\s,\+]+/).filter(term => term.length > 0)
+
+    // Filter matching plugins
+    const matchPlugins = results.filter(
+      plugin => (
+        searchTerms.some(term => plugin.name.includes(term)) ||
+        searchTerms.some(term => plugin.keywords.includes(term))
+      )
+    )
+
+    return orderBy(matchPlugins, ['verifiedPlusPlugin', 'verifiedPlugin'], ['desc', 'desc'])
   }
 
   /**
